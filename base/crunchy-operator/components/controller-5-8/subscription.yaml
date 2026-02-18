@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/channel
+  value: v5
+- op: replace
+  path: /spec/startingCSV
+  value: postgresoperator.v5.8.6
