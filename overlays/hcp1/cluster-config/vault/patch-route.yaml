@@ -1,0 +1,3 @@
+- op: replace
+  path: /spec/host
+  value: vault.apps.hcp1.k8scope.dev

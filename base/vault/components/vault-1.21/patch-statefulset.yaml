@@ -1,0 +1,7 @@
+- op: replace
+  path: /spec/template/spec/containers/0/image
+  value: registry.connect.redhat.com/hashicorp/vault:1.21.2-ubi
+
+- op: replace
+  path: /spec/volumeClaimTemplates/0/spec/resources/requests/storage
+  value: 30Gi

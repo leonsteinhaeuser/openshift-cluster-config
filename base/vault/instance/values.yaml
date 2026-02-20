@@ -1,0 +1,54 @@
+# Copyright IBM Corp. 2018, 2025
+# SPDX-License-Identifier: MPL-2.0
+
+# These overrides are appropriate defaults for deploying this chart on OpenShift
+
+global:
+  enabled: true
+  openshift: true
+  tlsDisable: true
+
+csi:
+  enabled: false
+
+injector:
+  enabled: false
+
+server:
+  enabled: true
+  image:
+    repository: PATCH_ME
+    tag: PATCH_ME
+
+  readinessProbe:
+    path: "/v1/sys/health?uninitcode=204"
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 512Mi
+  route:
+    enabled: true
+    activeService: true
+    host: PATCH_ME
+    tls:
+      termination: edge
+  authDelegator:
+    enabled: true
+  dataStorage:
+    enabled: true
+    size: PATCH_ME
+  standalone:
+    enabled: false
+  ha:
+    enabled: true
+    replicas: 3
+    raft:
+      enabled: true
+      setNodeId: true
+
+ui:
+  enabled: true
