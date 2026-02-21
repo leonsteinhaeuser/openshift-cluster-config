@@ -1,0 +1,23 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production-aws
+spec:
+  acme:
+    email: PATCH_ME
+    privateKeySecretRef:
+      name: PATCH_ME
+    server: 'https://acme-v02.api.letsencrypt.org/directory'
+    solvers:
+      - dns01:
+          route53:
+            accessKeyID: PATCH_ME
+            hostedZoneID: PATCH_ME
+            region: PATCH_ME
+            secretAccessKeySecretRef:
+              key: PATCH_ME
+              name: PATCH_ME
+        selector:
+          dnsZones:
+            - PATCH_ME api.<cluster-name>.<basedomain>
+            - PATCH_ME apps.<cluster-name>.<basedomain>
