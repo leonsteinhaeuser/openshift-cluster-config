@@ -1,0 +1,7 @@
+- op: replace
+  path: /spec/channel
+  value: v5
+
+- op: replace
+  path: /spec/startingCSV
+  value: grafana-operator.v5.21.2
