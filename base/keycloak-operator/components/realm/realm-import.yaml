@@ -1,0 +1,46 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: KeycloakRealmImport
+metadata:
+  name: sso
+spec:
+  keycloakCRName: keycloak
+  realm:
+    enabled: true
+    id: sso
+    realm: sso
+    loginWithEmailAllowed: true
+    registrationAllowed: false
+    roles:
+      realm:
+      - description: OpenShift Cluster Administrator role
+        name: ocp-cluster-admin
+      - description: OpenShift Namespace Administrator role
+        name: ocp-namespace-admin
+      - description: OpenShift Namespace Editor role
+        name: ocp-namespace-editor
+      - description: OpenShift Namespace Viewer role
+        name: ocp-namespace-viewer
+      - description: OpenShift User role
+        name: ocp-user
+    clients:
+      - enabled: true
+        clientAuthenticatorType: client-secret
+        clientId: idp-4-ocp
+        directAccessGrantsEnabled: true
+        frontchannelLogout: false
+        protocol: openid-connect
+        publicClient: false
+        redirectUris:
+        - '*'
+        secret: AIl2zpsOtU
+        serviceAccountsEnabled: true
+        standardFlowEnabled: true
+    duplicateEmailsAllowed: false
+    groups:
+      - name: ocp-cluster-admins
+        realmRoles:
+          - ocp-cluster-admin
+      - name: ocp-cluster-users
+        realmRoles:
+          - ocp-user
+    sslRequired: external
