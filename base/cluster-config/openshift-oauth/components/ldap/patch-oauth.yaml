@@ -1,0 +1,24 @@
+---
+- op: replace
+  path: /spec/identityProviders/0
+  value:
+    name: sso
+    mappingMethod: claim
+    type: LDAP
+    ldap:
+      attributes:
+        id:
+          - dn
+        email:
+          - mail
+        name:
+          - cn
+        preferredUsername:
+          - uid
+      bindDN: PATCH_ME
+      bindPassword:
+        name: ldap-secret
+      ca:
+        name: ca-config-map
+      insecure: false
+      url: PATCH_ME

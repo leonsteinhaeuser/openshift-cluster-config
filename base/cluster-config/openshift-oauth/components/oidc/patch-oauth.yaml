@@ -1,0 +1,22 @@
+- op: replace
+  path: /spec/identityProviders/0
+  value:
+    name: sso
+    mappingMethod: add
+    type: OpenID
+    openID:
+      ca:
+        name: oidc-client-ca-cert
+      claims:
+        email:
+          - email
+        groups:
+          - roles
+        name:
+          - name
+        preferredUsername:
+          - preferred_username
+      clientID: PATCH_ME
+      clientSecret:
+        name: oidc-client-secret
+      issuer: PATCH_ME
