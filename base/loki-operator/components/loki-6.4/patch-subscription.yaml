@@ -1,0 +1,7 @@
+- op: replace
+  path: /spec/channel
+  value: stable-6.4
+
+- op: replace
+  path: /spec/startingCSV
+  value: loki-operator.v6.4.2

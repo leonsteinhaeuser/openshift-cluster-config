@@ -1,0 +1,38 @@
+---
+apiVersion: loki.grafana.com/v1
+kind: LokiStack
+metadata:
+  name: openshift-logging
+spec:
+  managementState: Managed
+  size: PATCH_ME
+  storage:
+    schemas:
+      - version: v13
+        effectiveDate: "2024-04-01"
+    secret:
+      name: loki-s3-access
+      type: s3
+    tls:
+      caName: PATCH_ME
+      caKey: PATCH_ME
+  tenants:
+    mode: openshift-logging
+  storageClassName: PATCH_ME
+  limits:
+    global:
+      ingestion:
+        ingestionRate: 140
+        ingestionBurstSize: 140
+        maxLineSize: 512000
+        perStreamRateLimit: 5
+        perStreamRateLimitBurst: 20
+      queries:
+        maxEntriesLimitPerQuery: 10000
+        queryTimeout: 3m
+      retention:
+        days: 30
+        streams:
+          - days: 90
+            priority: 1
+            selector: '{k8s_namespace_name=~"openshift-.*"}'
