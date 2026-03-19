@@ -1,0 +1,7 @@
+- op: replace
+  path: /spec/channel
+  value: stable-v1
+
+- op: replace
+  path: /spec/startingCSV
+  value: external-secrets-operator.v1.0.0
