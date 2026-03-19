@@ -1,0 +1,51 @@
+appSuffix: hcp1
+appSourceBasePath: /overlays/hcp1/cluster-config
+
+default:
+  application:
+    enabled: false
+    namespace: "openshift-gitops"
+    labels: {}
+    annotations: {}
+    finalizers: []
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: "openshift-gitops"
+    project: "cluster-config-hcp1"
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+    source:
+      repoURL: https://github.com/leonsteinhaeuser/openshift-cluster-config
+      targetRevision: main
+
+  project:
+    enabled: false
+    namespace: "openshift-gitops"
+    annotations:
+      argocd.argoproj.io/sync-wave: "-100000"
+    sourceRepos:
+      - '*'
+    destinations:
+      - namespace: '*'
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: '*'
+        kind: '*'
+    namespaceResourceWhitelist:
+        - group: '*'
+          kind: '*'
+
+projects:
+  cluster-config-hcp1:
+    enabled: true
+    description: "Project for cluster configuration of HCP1 cluster"
+
+applications:
+  external-secrets-operator:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "0"
+    source:
+      path: "external-secrets-operator"
