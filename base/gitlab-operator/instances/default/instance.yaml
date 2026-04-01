@@ -1,0 +1,37 @@
+apiVersion: apps.gitlab.com/v1beta1
+kind: GitLab
+metadata:
+  name: gitlab
+spec:
+  chart:
+    values:
+      gitlab:
+        gitlab-shell:
+          maxReplicas: 3
+          minReplicas: 1
+        sidekiq:
+          maxReplicas: 3
+          minReplicas: 1
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1000M
+        webservice:
+          maxReplicas: 3
+          minReplicas: 1
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1500M
+      global:
+        hosts:
+          domain: PATCH_ME
+      installCertmanager: false
+      postgresql:
+        primary:
+          extendedConfiguration: max_connections = 200
+      redis:
+        resources:
+          requests:
+            cpu: 100m
+    version: 9.10.1
