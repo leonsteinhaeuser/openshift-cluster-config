@@ -1,0 +1,14 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: gitlab-runner-scc
+rules:
+- apiGroups:
+  - security.openshift.io
+  resourceNames:
+  - gitlab-runner-scc
+  resources:
+  - securitycontextconstraints
+  verbs:
+  - use
