@@ -1,0 +1,18 @@
+name: Kustomize Validation
+
+on:
+  push:
+    branches:
+      - "**"
+
+env:
+  IMAGE_REPOSITORY: quay.io/redhat-consulting-services/kustomize-validator
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Execute Kustomize Validator
+        run: docker run --rm -v ${{ github.workspace }}/kustomize-data:/data ${{ env.IMAGE_REPOSITORY }}:latest kustomize-validator /data/overlays -ev
