@@ -3,6 +3,4 @@ kind: OperatorGroup
 metadata:
   name: external-secrets-operator
 spec:
-  targetNamespaces:
-    - external-secrets-operator
   upgradeStrategy: Default
