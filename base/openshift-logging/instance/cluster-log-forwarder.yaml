@@ -1,0 +1,17 @@
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: instance
+spec:
+  managementState: Managed
+  outputs: []
+  pipelines:
+  - inputRefs:
+    - application
+    - infrastructure
+    - audit
+    name: forward-all
+    outputRefs:
+    - PATCH_ME
+  serviceAccount:
+    name: logcollector
