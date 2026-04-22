@@ -1,5 +1,5 @@
 appSuffix: hcp1
-appSourceBasePath: /overlays/hcp1/cluster-config
+appSourceBasePath: overlays/hcp1/cluster-config
 
 default:
   application:
