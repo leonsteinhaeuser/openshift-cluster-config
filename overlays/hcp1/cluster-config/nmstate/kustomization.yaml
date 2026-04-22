@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../base/nmstate-operator/operator
+  - ../../../../base/nmstate-operator/instance
+
+components:
+  - ../../../../base/nmstate-operator/components/nmstate-v4.21.0-202604080925
