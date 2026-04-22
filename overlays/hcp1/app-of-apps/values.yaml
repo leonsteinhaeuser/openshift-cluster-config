@@ -43,6 +43,13 @@ projects:
     description: "Project for cluster configuration of HCP1 cluster"
 
 applications:
+  nmstate-operator:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "0"
+    source:
+      path: "nmstate-operator"
+
   external-secrets-operator:
     enabled: true
     annotations:
