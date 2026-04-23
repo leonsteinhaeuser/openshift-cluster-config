@@ -1,0 +1,12 @@
+- op: replace
+  path: /spec/identityProviders/0/openID/issuer
+  value: https://auth.k8scope.dev/realms/openshift
+- op: replace
+  path: /spec/identityProviders/0/openID/clientID
+  value: openshift-hcp1-k8scope-dev
+- op: replace
+  path: /spec/identityProviders/0/openID/clientSecret/name
+  value: "openshift-oauth-oidc-client-secret"
+- op: replace
+  path: /spec/identityProviders/0/openID/ca
+  value: {}
