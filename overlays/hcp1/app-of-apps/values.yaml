@@ -43,16 +43,30 @@ projects:
     description: "Project for cluster configuration of HCP1 cluster"
 
 applications:
+  external-secrets-operator:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-10"
+    source:
+      path: "external-secrets-operator"
+
+  cluster-config-proxy:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-9"
+    source:
+      path: "base-config/proxy"
+
+  cluster-config-oauth:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-8"
+    source:
+      path: "base-config/oauth"
+
   nmstate-operator:
     enabled: true
     annotations:
       argocd.argoproj.io/sync-wave: "0"
     source:
       path: "nmstate-operator"
-
-  external-secrets-operator:
-    enabled: true
-    annotations:
-      argocd.argoproj.io/sync-wave: "0"
-    source:
-      path: "external-secrets-operator"
