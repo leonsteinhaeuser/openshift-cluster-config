@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../../base/cluster-config/openshift-proxy/instance
+  - ca-bundle-secret.yaml
+patches:
+  - target:
+      kind: Proxy
+      name: cluster
+    path: patch-proxy.yaml
