@@ -106,3 +106,10 @@ applications:
       argocd.argoproj.io/sync-wave: "-4"
     source:
       path: "base-config/udn"
+
+  openshift-lvm-operator:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-3"
+    source:
+      path: "openshift-lvm-operator"
