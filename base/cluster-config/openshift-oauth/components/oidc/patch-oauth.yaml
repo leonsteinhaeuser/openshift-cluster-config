@@ -5,8 +5,6 @@
     mappingMethod: add
     type: OpenID
     openID:
-      ca:
-        name: oidc-client-ca-cert
       claims:
         email:
           - email

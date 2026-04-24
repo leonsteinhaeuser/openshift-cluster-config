@@ -7,6 +7,3 @@
 - op: replace
   path: /spec/identityProviders/0/openID/clientSecret/name
   value: "openshift-oauth-oidc-client-secret"
-- op: replace
-  path: /spec/identityProviders/0/openID/ca/name
-  value: "user-ca-bundle"
