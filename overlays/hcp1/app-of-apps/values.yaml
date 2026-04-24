@@ -53,6 +53,10 @@ applications:
       ignoreDifferences:
         - kind: ConfigMap
           name: openshift-user-ca
+        - kind: ConfigMap
+          name: user-ca-bundle
+          jsonPointers:
+            - /data
 
   external-secrets-operator:
     enabled: true
