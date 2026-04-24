@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../base/openshift-lvm-operator/operator
+  - ../../../../base/openshift-lvm-operator/instance
+
+components:
+  - ../../../../base/openshift-lvm-operator/components/lvm-v4.21.0
