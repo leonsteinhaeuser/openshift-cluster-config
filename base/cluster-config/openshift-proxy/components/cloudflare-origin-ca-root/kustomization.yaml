@@ -7,6 +7,7 @@ configMapGenerator:
   - name: cloudflare-origin-ca
     files:
       - ca-bundle.crt=cloudflare-origin-ca.pem
+      - ca.crt=cloudflare-origin-ca.pem
 patches:
   - target:
       kind: Proxy
