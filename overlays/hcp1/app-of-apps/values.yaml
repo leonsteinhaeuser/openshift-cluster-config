@@ -43,12 +43,12 @@ projects:
     description: "Project for cluster configuration of HCP1 cluster"
 
 applications:
-  openshift-gitops-operator:
+  cluster-config-proxy:
     enabled: true
     annotations:
       argocd.argoproj.io/sync-wave: "-10"
     source:
-      path: "openshift-gitops-operator"
+      path: "base-config/proxy"
 
   external-secrets-operator:
     enabled: true
@@ -57,17 +57,24 @@ applications:
     source:
       path: "external-secrets-operator"
 
-  cluster-config-proxy:
+  openshift-gitops-operator:
     enabled: true
     annotations:
       argocd.argoproj.io/sync-wave: "-8"
     source:
-      path: "base-config/proxy"
+      path: "openshift-gitops-operator"
+
+  cluster-config-ingress:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-7"
+    source:
+      path: "base-config/ingress"
 
   cluster-config-oauth:
     enabled: true
     annotations:
-      argocd.argoproj.io/sync-wave: "-7"
+      argocd.argoproj.io/sync-wave: "-6"
     source:
       path: "base-config/oauth"
 
