@@ -85,6 +85,8 @@ applications:
       argocd.argoproj.io/sync-wave: "-6"
     source:
       path: "base-config/oauth"
+    syncPolicy:
+      automated: {}
 
   nmstate-operator:
     enabled: true
