@@ -1,3 +1,3 @@
 - op: replace
   path: /spec/trustedCA/name
-  value: user-ca-bundle
+  value: cloudflare-origin-ca

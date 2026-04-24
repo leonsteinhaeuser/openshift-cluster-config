@@ -4,10 +4,9 @@ namespace: openshift-config
 generatorOptions:
   disableNameSuffixHash: true
 configMapGenerator:
-  - name: user-ca-bundle
+  - name: cloudflare-origin-ca
     files:
       - ca-bundle.crt=cloudflare-origin-ca.pem
-      - ca.crt=cloudflare-origin-ca.pem
 patches:
   - target:
       kind: Proxy
