@@ -5,8 +5,6 @@
     mappingMethod: add
     type: OpenID
     openID:
-      ca:
-        name: user-ca-bundle
       claims:
         email:
           - email
