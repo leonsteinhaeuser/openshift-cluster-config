@@ -58,6 +58,13 @@ applications:
           jsonPointers:
             - /data
 
+  cluster-config-nncp:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-10"
+    source:
+      path: "base-config/nncp"
+
   external-secrets-operator:
     enabled: true
     annotations:

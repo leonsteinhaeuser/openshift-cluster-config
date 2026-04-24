@@ -1,0 +1,19 @@
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: master-03
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: master-03.hcp1.k8scope.dev
+  desiredState:
+    interfaces:
+      - name: enp7s0
+        type: ethernet
+        state: up
+        mac-address: 52:54:00:83:24:8d
+        ipv4:
+          enabled: true
+          dhcp: false
+          address:
+            - ip: 192.168.100.12
+              prefix-length: 24
