@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: user-ca-bundle
   labels:
-      config.openshift.io/inject-trusted-cabundle: 'true'
+    config.openshift.io/inject-trusted-cabundle: 'true'
 data: {}
