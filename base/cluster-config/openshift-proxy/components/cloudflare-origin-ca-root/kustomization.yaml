@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+namespace: openshift-config
+generatorOptions:
+  disableNameSuffixHash: true
+configMapGenerator:
+  - name: user-ca-bundle
+    files:
+      - ca-bundle.crt=cloudflare-origin-ca.pem
+      - ca.crt=cloudflare-origin-ca.pem
+patches:
+  - target:
+      kind: Proxy
+      name: cluster
+    path: patch-proxy.yaml
