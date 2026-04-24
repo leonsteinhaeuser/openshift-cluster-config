@@ -49,6 +49,10 @@ applications:
       argocd.argoproj.io/sync-wave: "-10"
     source:
       path: "base-config/proxy"
+    extraFields:
+      ignoreDifferences:
+        - kind: ConfigMap
+          name: openshift-user-ca
 
   external-secrets-operator:
     enabled: true
