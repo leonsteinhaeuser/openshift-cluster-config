@@ -1,0 +1,30 @@
+apiVersion: k8s.ovn.org/v1
+kind: ClusterUserDefinedNetwork
+metadata:
+  name: cudn-localnet-bridge-pods
+spec:
+  namespaceSelector:
+    matchExpressions:
+    - key: stage.openshift.io/name
+      operator: In
+      values: ["production"]
+  network:
+    topology: Localnet
+    localnet:
+      role: Secondary
+      physicalNetworkName: localnet-bridge-pods
+      subnets:
+        - 10.11.0.0/24
+      excludeSubnets:
+        - 10.11.0.0/32
+        - 10.11.0.1/32
+        - 10.11.0.254/32
+        - 10.11.0.255/32
+      mtu: 1500
+      vlan:
+        mode: Access
+        access:
+          id: 1014
+      ipam:
+        mode: Enabled
+        lifecycle: Persistent
