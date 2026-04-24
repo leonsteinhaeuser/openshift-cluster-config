@@ -58,13 +58,6 @@ applications:
           jsonPointers:
             - /data
 
-  cluster-config-nncp:
-    enabled: true
-    annotations:
-      argocd.argoproj.io/sync-wave: "-10"
-    source:
-      path: "base-config/nncp"
-
   external-secrets-operator:
     enabled: true
     annotations:
@@ -96,6 +89,20 @@ applications:
   nmstate-operator:
     enabled: true
     annotations:
-      argocd.argoproj.io/sync-wave: "0"
+      argocd.argoproj.io/sync-wave: "-5"
     source:
       path: "nmstate-operator"
+
+  cluster-config-nncp:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-4"
+    source:
+      path: "base-config/nncp"
+
+  cluster-config-udn:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-4"
+    source:
+      path: "base-config/udn"
