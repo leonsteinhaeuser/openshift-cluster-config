@@ -9,7 +9,7 @@
         email:
           - email
         groups:
-          - roles
+          - groups
         name:
           - name
         preferredUsername:
