@@ -86,6 +86,13 @@ applications:
     source:
       path: "base-config/oauth"
 
+  cluster-config-rbac:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-6"
+    source:
+      path: "base-config/rbac"
+
   nmstate-operator:
     enabled: true
     annotations:
