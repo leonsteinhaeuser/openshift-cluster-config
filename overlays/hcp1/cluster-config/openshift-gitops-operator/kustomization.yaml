@@ -6,3 +6,9 @@ resources:
 
 #components:
 #  - ../../../../base/openshift-gitops-operator/components/...
+
+patches:
+  - target:
+      kind: ArgoCD
+      name: openshift-gitops
+    path: patch-instnace-user-rbac.yaml
