@@ -1,0 +1,42 @@
+apiVersion: policy.networking.k8s.io/v1alpha1
+kind: AdminNetworkPolicy
+metadata:
+  name: default-baseline-communication
+  labels:
+    access.network.openshift.io/default: "true"
+spec:
+  priority: 1
+  subject:
+    namespaces:
+      matchLabels:
+        access.network.openshift.io/default: "true"
+  ingress:
+    - name: "allow-ingress-from-monitoring"
+      action: "Allow"
+      from:
+        - namespaces:
+            matchLabels:
+              kubernetes.io/metadata.name: openshift-monitoring
+        - namespaces:
+            matchLabels:
+              kubernetes.io/metadata.name: openshift-user-workload-monitoring
+    - name: "allow-ingress-from-ingress-controller"
+      action: "Allow"
+      from:
+        - namespaces:
+            matchLabels:
+              kubernetes.io/metadata.name: openshift-ingress
+  egress:
+    - name: "allow-egress-to-openshift-dns"
+      action: "Allow"
+      to:
+        - pods:
+            namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: openshift-dns
+            podSelector:
+              matchLabels:
+                dns.operator.openshift.io/daemonset-dns: default
+      ports:
+        - namedPort: dns
+        - namedPort: dns-tcp

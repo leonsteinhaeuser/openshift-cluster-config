@@ -1,0 +1,26 @@
+apiVersion: policy.networking.k8s.io/v1alpha1
+kind: AdminNetworkPolicy
+metadata:
+  name: emergency-block-all
+  labels:
+    access.network.openshift.io/emergency-block-all: "true"
+spec:
+  priority: 0
+  subject:
+    namespaces:
+      matchLabels:
+        access.network.openshift.io/emergency-block-all: "true"
+  ingress:
+    - name: "allow-ingress-from-monitoring"
+      action: "Deny"
+      from:
+        - pods:
+            namespaceSelector: {}
+            podSelector: {}
+  egress:
+    - name: "egress-to-openshift-dns"
+      action: "Deny"
+      to:
+        - networks:
+            - "0.0.0.0/0"
+            - "::/0"

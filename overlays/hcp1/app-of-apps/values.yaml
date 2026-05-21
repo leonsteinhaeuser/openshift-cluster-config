@@ -93,6 +93,13 @@ applications:
     source:
       path: "base-config/rbac"
 
+  cluster-config-network-policy:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-6"
+    source:
+      path: "base-config/network-policies"
+
   nmstate-operator:
     enabled: true
     annotations:

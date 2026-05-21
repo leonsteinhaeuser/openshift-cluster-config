@@ -1,0 +1,25 @@
+apiVersion: policy.networking.k8s.io/v1alpha1
+kind: BaselineAdminNetworkPolicy
+metadata:
+  name: default
+  labels:
+    access.network.openshift.io/default: "true"
+spec:
+  subject:
+    namespaces:
+      matchLabels:
+        access.network.openshift.io/default: "true"
+  ingress:
+    # Deny everything else
+    - name: deny-all-other-ingress
+      action: Deny
+      from:
+        - namespaces: {}
+  egress:
+    # Deny traffic to external and internal destinations
+    - name: deny-external-egress
+      action: Deny
+      to:
+        - networks:
+            - "0.0.0.0/0"
+            - "::/0"
