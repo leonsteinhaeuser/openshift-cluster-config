@@ -1,0 +1,207 @@
+argoCD:
+  # -- name is the name of the Developer Argo CD instance.
+  name: openshift-gitops
+  # -- namespace is the namespace where the Developer Argo CD instance resides.
+  namespace: openshift-gitops
+
+defaults:
+  namespace:
+    # -- Labels applied to all Namespaces being provisioned.
+    labels:
+      access.network.openshift.io/default: 'true'
+      tenant.openshift.io/name: "chassi"
+      environment.openshift.io/type: "production"
+    # -- Annotations applied to all Namespaces being provisioned.
+    annotations: {}
+    # -- features contains feature flags applied to all namespaces unless overridden.
+    features:
+      # -- enableNetpolAuditLogging enables OVN ACL logging for allowed and denied traffic.
+      enableNetpolAuditLogging: true
+      # -- enableUserMonitoring enables user-defined Prometheus monitoring for applications.
+      enableUserMonitoring: true
+      # -- enableCertificateConfigMap enables automatic injection of the cluster CA bundle into a ConfigMap in the namespace.
+      enableCertificateConfigMap: true
+      # -- enableServiceCaCertificateConfigMap enables automatic injection of the service CA bundle into a ConfigMap with service.beta.openshift.io/inject-cabundle: "true" in the namespace.
+      enableServiceCaCertificateConfigMap: true
+      # -- enableArgocdRBAC enables ArgoCD RBAC RoleBinding creation for the namespace.
+      # When disabled, ArgoCD's application and applicationset controllers will not have access to the namespace, unless manually granted.
+      enableArgocdRBAC: true
+
+  limitRange:
+    # -- whether to enable LimitRange by default.
+    enabled: true
+    # -- name of the LimitRange resource.
+    name: default
+    # -- Configuration for container-level limits (max, min, default, defaultRequest).
+    container:
+      # -- enabled indicates if container limits are enabled. Only used if parent "limitRange" enabled is true.
+      enabled: true
+      # -- values defines the concrete limit values.
+      values:
+        # -- max limits for containers.
+        max:
+          # -- cpu defines the maximum CPU limit.
+          cpu: "4"
+          # -- memory defines the maximum memory limit.
+          memory: 8Gi
+        # Min limits for containers.
+        min:
+          cpu: 10m
+          memory: 10Mi
+        # Default limits for containers.
+        default:
+          cpu: 100m
+          memory: 512Mi
+        # Default requests for containers.
+        defaultRequest:
+          cpu: 10m
+          memory: 128Mi
+    pod:
+      # -- enabled indicates if container limits are enabled. Only used if parent "limitRange" enabled is true.
+      enabled: true
+      # -- values defines the concrete limit values.
+      values:
+        max:
+          cpu: "1"
+          memory: "2Gi"
+        min:
+          cpu: "10m"
+          memory: "32Mi"
+    pvc:
+      # -- enabled indicates if container limits are enabled. Only used if parent "limitRange" enabled is true.
+      enabled: true
+      # -- values defines the concrete limit values.
+      values:
+        max:
+          storage: 100Gi
+        min:
+          storage: 1Gi
+
+  resourceQuota:
+    # -- whether to enable ResourceQuota by default.
+    enabled: true
+    # -- compute quotas (requests.cpu, limits.memory, etc).
+    compute:
+      # -- enabled indicates if compute resource quotas are enabled. Only used if parent "resourceQuota" enabled is true.
+      enabled: true
+      # -- name of the ResourceQuota for compute resources.
+      name: compute-resources
+      # -- values for compute resource quotas.
+      values:
+        requests.cpu: "10"
+        requests.memory: 20Gi
+        limits.cpu: "20"
+        limits.memory: 40Gi
+    # -- Quotas for storage resources (requests.storage, pvc counts, etc).
+    storage:
+    # -- enabled indicates if compute resource quotas are enabled. Only used if parent "resourceQuota" enabled is true.
+      enabled: true
+      # -- name of the ResourceQuota for storage resources.
+      name: storage-resources
+      # -- values for storage resource quotas.
+      values:
+        requests.storage: 100Gi
+        persistentvolumeclaims: "10"
+        ephemeral-storage: "50Gi"
+    # -- Quotas for Kubernetes object counts (pods, services, secrets, etc).
+    objects:
+      # -- enabled indicates if compute resource quotas are enabled. Only used if parent "resourceQuota" enabled is true.
+      enabled: true
+      # -- name of the ResourceQuota for compute resources.
+      name: objects-resources
+      # -- values for objects resource quotas.
+      values:
+        pods: "50"
+        services: "20"
+        secrets: "100"
+        configmaps: "100"
+        count/deployments.apps: "20"
+        count/statefulsets.apps: "10"
+
+  rbac:
+    # -- whether to enable RBAC by default.
+    enabled: true
+    # -- roleBindings of roles to OpenShift groups.
+    roleBindings:
+      - # -- name is the name of the RoleBinding to create.
+        name: developers
+        # -- clusterRole is the name of ClusterRole to bind to the role's groups.
+        clusterRole: view
+        # -- groups is a list of OpenShift groups to bind to the role.
+        groups:
+          - chassi-developers
+
+# -- project defines the Argo CD AppProject to create for the tenant namespaces.
+project:
+  # -- name is the name of the Argo CD AppProject to create.
+  name: "chassi-project"
+  # -- argocdNamespace is the namespace where the Developer Argo CD instance resides (used for AppProject and delegation).
+  namespace: ""
+  # -- enable of disable the project resource creation
+  enabled: true
+  # -- description is an optional description for the AppProject.
+  description: ""
+  # -- sourceRepos is a list of allowed source repositories for applications in this project.
+  sourceRepos:
+    - https://github.com/leonsteinhaeuser/openshift-cluster-config.git
+  # -- destinations is a list of allowed deployment destinations for applications in this project.
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: chassi-front
+    - server: https://kubernetes.default.svc
+      namespace: chassi-back
+    - server: https://kubernetes.default.svc
+      namespace: chassi-center
+    - server: https://kubernetes.default.svc
+      namespace: chassi-shared
+  # - clusterResourceBlacklist is a list of cluster-scoped resources disallowed in this project.
+  clusterResourceBlacklist:
+    - group: '*'
+      kind: '*'
+  # - namespaceResourceWhitelist is a list of namespace-scoped resources allowed in this project.
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  # - namespaceResourceBlacklist is a list of namespace-scoped resources disallowed in this project.
+  namespaceResourceBlacklist:
+    - group: networking.k8s.io
+      kind: NetworkPolicy
+  # -- roles is a list of roles and their policies for this project.
+  roles:
+    - name: chassi-developers
+      groups:
+        - chassi-developers
+      policies:
+        - p, proj:chassi-project:chassi-developers, applications, get, chassi-front/*, allow
+        - p, proj:chassi-project:chassi-developers, applications, get, chassi-back/*, allow
+        - p, proj:chassi-project:chassi-developers, applications, get, chassi-center/*, allow
+        - p, proj:chassi-project:chassi-developers, applications, get, chassi-shared/*, allow
+
+# -- namespaces defines an array of namespace definitions to be created.
+namespaces:
+  - name: chassi-front
+  - name: chassi-back
+  - name: chassi-center
+  - name: chassi-shared
+    namespace:
+      labels:
+        access.network.openshift.io/default: 'true'
+    extraResources:
+      - apiVersion: networking.k8s.io/v1
+        kind: NetworkPolicy
+        metadata:
+          name: allow-postgres-from-tenant
+        spec:
+          podSelector: {}
+          policyTypes:
+            - Ingress
+            - Egress
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      tenant.openshift.io/name: "chassi"
+                      environment.openshift.io/type: "production"
+              ports:
+                - protocol: TCP
+                  port: 5432
