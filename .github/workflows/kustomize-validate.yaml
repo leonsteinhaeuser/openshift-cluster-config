@@ -14,5 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Debug path
+        run: |
+          echo "Workspace: ${{ github.workspace }}"
+          echo "-------------------------------"
+          ls -l "${{ github.workspace }}"
+          echo "-------------------------------"
+          ls -l "./"
+
       - name: Execute Kustomize Validator
-        run: docker run --rm -v ${{ github.workspace }}/kustomize-data:/data ${{ env.IMAGE_REPOSITORY }}:latest kustomize-validator /data/overlays -ev
+        run: docker run --rm --entrypoint '/kustomize-validator --help' -v "./:/data" ${{ env.IMAGE_REPOSITORY }}:latest
