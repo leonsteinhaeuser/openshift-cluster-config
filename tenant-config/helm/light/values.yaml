@@ -8,7 +8,7 @@ defaults:
   namespace:
     # -- Labels applied to all Namespaces being provisioned.
     labels:
-      access.network.openshift.io/default: 'true'
+      access.network.openshift.io/default: ""
       tenant.openshift.io/name: "light"
       environment.openshift.io/type: "production"
     # -- Annotations applied to all Namespaces being provisioned.
@@ -69,7 +69,7 @@ defaults:
           memory: "32Mi"
     pvc:
       # -- enabled indicates if container limits are enabled. Only used if parent "limitRange" enabled is true.
-      enabled: true
+      enabled: false
       # -- values defines the concrete limit values.
       values:
         max:
@@ -185,7 +185,7 @@ namespaces:
   - name: light-shared
     namespace:
       labels:
-        access.network.openshift.io/default: 'true'
+        access.network.openshift.io/default: ""
     extraResources:
       - apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy

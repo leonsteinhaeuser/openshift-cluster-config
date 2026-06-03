@@ -27,6 +27,12 @@ projects:
   tenant-configuration-mto:
     enabled: true
     description: "Project for tenant configuration"
+    clusterResourceWhitelist:
+      - group: ''
+        kind: Namespace
+    namespaceResourceWhitelist:
+      - group: '*'
+        kind: '*'
 
 applications:
   tenant-configs:
