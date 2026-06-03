@@ -141,3 +141,11 @@ applications:
       argocd.argoproj.io/sync-wave: "0"
     source:
       path: "multi-tenant-operator"
+
+  tenant-configurations:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "1"
+    source:
+      ignoreBasePath: true
+      path: "tenant-config/app-of-apps"

@@ -1,0 +1,40 @@
+appSuffix: helm
+appSourceBasePath: tenant-config/helm
+
+default:
+  application:
+    enabled: false
+    namespace: "openshift-gitops"
+    labels: {}
+    annotations: {}
+    finalizers: []
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: "openshift-gitops"
+    project: "tenant-configuration-helm"
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+    source:
+      repoURL: https://github.com/leonsteinhaeuser/openshift-cluster-config
+      targetRevision: main
+
+  project:
+    enabled: false
+
+projects:
+  tenant-configuration-helm:
+    enabled: true
+    description: "Project for tenant configuration"
+
+applications:
+  tenant-config-chassi:
+    enabled: true
+    source:
+      path: "chassi"
+
+  tenant-config-light:
+    enabled: true
+    source:
+      path: "light"

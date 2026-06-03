@@ -1,0 +1,42 @@
+apiVersion: tenant.openshift.io/v1alpha1
+kind: MultiTenantConfig
+metadata:
+  name: chassi
+spec:
+  resourceQuotaReference: small
+  limitRangeReference: small
+  argocd:
+    instanceName: openshift-gitops
+    instanceNamespace: openshift-gitops
+    project:
+      enabled: true
+      name: chassi
+      destinations:
+        - server: https://kubernetes.default.svc
+          namespace: chassi-front
+        - server: https://kubernetes.default.svc
+          namespace: chassi-back
+        - server: https://kubernetes.default.svc
+          namespace: chassi-center
+        - server: https://kubernetes.default.svc
+          namespace: chassi-shared
+      sourceRepos:
+        - https://github.com/leonsteinhaeuser/openshift-cluster-config.git
+      clusterResourceBlacklist:
+        - group: '*'
+          kind: '*'
+      namespaceResourceBlacklist:
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+  configSpec:
+    enableAuditLogging: true
+    enableUserWorkloadMonitoring: true
+    enableCertificateConfigMapCreation: true
+    enableArgoCDControllerManagement: true
+    enableNamePrefix: true
+    enableNetworkPolicyTenantInternalAllow: true
+  namespaces:
+    - name: front
+    - name: center
+    - name: back
+    - name: shared

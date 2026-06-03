@@ -1,0 +1,33 @@
+appSuffix: mto
+appSourceBasePath: tenant-config/multi-tenant-operator
+
+default:
+  application:
+    enabled: false
+    namespace: "openshift-gitops"
+    labels: {}
+    annotations: {}
+    finalizers: []
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: "openshift-gitops"
+    project: "tenant-configuration-mto"
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+    source:
+      repoURL: https://github.com/leonsteinhaeuser/openshift-cluster-config
+      targetRevision: main
+
+  project:
+    enabled: false
+
+projects:
+  tenant-configuration-mto:
+    enabled: true
+    description: "Project for tenant configuration"
+
+applications:
+  tenant-configs:
+    enabled: true
