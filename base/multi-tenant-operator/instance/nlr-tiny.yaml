@@ -1,0 +1,19 @@
+apiVersion: tenantconfig.openshift.io/v1alpha1
+kind: NamespaceLimitRange
+metadata:
+  name: tiny
+spec:
+  limits:
+    - default:
+        cpu: 100m
+        memory: 128Mi
+      defaultRequest:
+        cpu: 10m
+        memory: 32Mi
+      max:
+        cpu: "1"
+        memory: "2Gi"
+      min:
+        cpu: 10m
+        memory: 32Mi
+      type: Container

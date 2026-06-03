@@ -58,6 +58,13 @@ applications:
           jsonPointers:
             - /data
 
+  cluster-config-catalog-source:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-10"
+    source:
+      path: "base-config/catalog-sources"
+
   external-secrets-operator:
     enabled: true
     annotations:
@@ -127,3 +134,10 @@ applications:
       argocd.argoproj.io/sync-wave: "-3"
     source:
       path: "openshift-lvm-operator"
+
+  multi-tenant-operator:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "0"
+    source:
+      path: "multi-tenant-operator"

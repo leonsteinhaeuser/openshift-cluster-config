@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: multi-tenant-operator
+commonAnnotations:
+  argocd.argoproj.io/sync-wave: "1"
+resources:
+  - nlr-tiny.yaml
+  - nlr-small.yaml
+  - nlr-medium.yaml
+  - nlr-large.yaml
+  - nlr-xlarge.yaml
+
+  - nrq-tiny.yaml
+  - nrq-small.yaml
+  - nrq-medium.yaml
+  - nrq-large.yaml
+  - nrq-xlarge.yaml

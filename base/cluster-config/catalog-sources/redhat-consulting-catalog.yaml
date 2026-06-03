@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: rh-consulting-catalog
+  namespace: openshift-marketplace
+spec:
+  sourceType: grpc
+  image: quay.io/redhat-consulting-services/rh-consulting-catalog:latest
+  displayName: Red Hat Consulting Catalog
+  publisher: Red Hat Consulting

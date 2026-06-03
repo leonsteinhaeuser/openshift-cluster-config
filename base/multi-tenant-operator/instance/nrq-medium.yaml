@@ -1,0 +1,15 @@
+apiVersion: tenantconfig.openshift.io/v1alpha1
+kind: NamespaceResourceQuota
+metadata:
+  name: medium
+spec:
+  hard:
+    cpu: "8"
+    memory: "32Gi"
+    pods: "30"
+    configmaps: "20"
+    persistentvolumeclaims: "20"
+    replicationcontrollers: "10"
+    secrets: "30"
+    services: "30"
+    services.loadbalancers: "0"
