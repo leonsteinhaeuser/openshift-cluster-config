@@ -6,6 +6,6 @@ spec:
   channel: PATCH_ME
   installPlanApproval: Manual
   name: multi-tenant-operator
-  source: redhat-operators
+  source: rh-consulting-catalog
   sourceNamespace: openshift-marketplace
   startingCSV: PATCH_ME
