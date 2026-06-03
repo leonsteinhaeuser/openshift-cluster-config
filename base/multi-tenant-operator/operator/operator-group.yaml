@@ -3,6 +3,4 @@ kind: OperatorGroup
 metadata:
   name: multi-tenant-operator
 spec:
-  targetNamespaces:
-    - multi-tenant-operator
   upgradeStrategy: Default
