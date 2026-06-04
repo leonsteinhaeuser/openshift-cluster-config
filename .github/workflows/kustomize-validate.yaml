@@ -14,13 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Debug path
+      - name: Setup kustomize-validator
         run: |
-          echo "Workspace: ${{ github.workspace }}"
-          echo "-------------------------------"
-          ls -l "${{ github.workspace }}"
-          echo "-------------------------------"
-          ls -l "./"
+          mkdir tmp
+          cd tmp
+          curl -X GET -L https://github.com/redhat-consulting-services/kustomize-validator/releases/download/v1.1.0/kustomize-validator_Linux_x86_64.tar.gz -o kustomize-validator.tar.gz
+          tar -xzf kustomize-validator.tar.gz
 
       - name: Execute Kustomize Validator
-        run: docker run --rm --entrypoint '/kustomize-validator --help' -v "./:/data" ${{ env.IMAGE_REPOSITORY }}:latest
+        run: |
+          ./tmp/kustomize-validator ./overlays --table
