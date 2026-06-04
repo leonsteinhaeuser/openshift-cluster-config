@@ -30,6 +30,8 @@ projects:
     clusterResourceWhitelist:
       - group: ''
         kind: Namespace
+      - group: 'tenant.openshift.io'
+        kind: MultiTenantConfig
     namespaceResourceWhitelist:
       - group: '*'
         kind: '*'
