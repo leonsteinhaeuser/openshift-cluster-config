@@ -6,5 +6,5 @@ helmCharts:
   - name: tenant-namespaces
     releaseName: chassi
     repo: oci://ghcr.io/redhat-consulting-services/helm-charts
-    version: 1.2.0
+    version: 1.2.1
     valuesFile: ./values.yaml
