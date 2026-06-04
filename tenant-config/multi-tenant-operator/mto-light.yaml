@@ -2,6 +2,8 @@ apiVersion: tenant.openshift.io/v1alpha1
 kind: MultiTenantConfig
 metadata:
   name: mto-light
+  labels:
+    access.network.openshift.io/default: ""
 spec:
   resourceQuotaReference: small
   limitRangeReference: small
