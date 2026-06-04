@@ -1,7 +1,7 @@
 apiVersion: tenant.openshift.io/v1alpha1
 kind: MultiTenantConfig
 metadata:
-  name: chassi
+  name: mto-chassi
 spec:
   resourceQuotaReference: small
   limitRangeReference: small
@@ -10,16 +10,16 @@ spec:
     instanceNamespace: openshift-gitops
     project:
       enabled: true
-      name: chassi
+      name: mto-chassi
       destinations:
         - server: https://kubernetes.default.svc
-          namespace: chassi-front
+          namespace: mto-chassi-front
         - server: https://kubernetes.default.svc
-          namespace: chassi-back
+          namespace: mto-chassi-back
         - server: https://kubernetes.default.svc
-          namespace: chassi-center
+          namespace: mto-chassi-center
         - server: https://kubernetes.default.svc
-          namespace: chassi-shared
+          namespace: mto-chassi-shared
       sourceRepos:
         - https://github.com/leonsteinhaeuser/openshift-cluster-config.git
       clusterResourceBlacklist:

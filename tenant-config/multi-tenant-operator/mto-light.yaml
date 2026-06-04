@@ -1,7 +1,7 @@
 apiVersion: tenant.openshift.io/v1alpha1
 kind: MultiTenantConfig
 metadata:
-  name: light
+  name: mto-light
 spec:
   resourceQuotaReference: small
   limitRangeReference: small
@@ -10,16 +10,16 @@ spec:
     instanceNamespace: openshift-gitops
     project:
       enabled: true
-      name: light
+      name: mto-light
       destinations:
         - server: https://kubernetes.default.svc
-          namespace: light-front
+          namespace: mto-light-front
         - server: https://kubernetes.default.svc
-          namespace: light-back
+          namespace: mto-light-back
         - server: https://kubernetes.default.svc
-          namespace: light-center
+          namespace: mto-light-center
         - server: https://kubernetes.default.svc
-          namespace: light-shared
+          namespace: mto-light-shared
       sourceRepos:
         - https://github.com/leonsteinhaeuser/openshift-cluster-config.git
       clusterResourceBlacklist:
