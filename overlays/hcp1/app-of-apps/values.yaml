@@ -79,6 +79,13 @@ applications:
     source:
       path: "openshift-gitops-operator"
 
+  cluster-config-apiserver:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-7"
+    source:
+      path: "base-config/apiserver"
+
   cluster-config-ingress:
     enabled: true
     annotations:
