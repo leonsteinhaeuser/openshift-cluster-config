@@ -195,7 +195,6 @@ namespaces:
           podSelector: {}
           policyTypes:
             - Ingress
-            - Egress
           ingress:
             - from:
                 - namespaceSelector:
@@ -205,3 +204,36 @@ namespaces:
               ports:
                 - protocol: TCP
                   port: 5432
+      - apiVersion: external-secrets.io/v1
+        kind: ExternalSecret
+        metadata:
+          name: openshift-ingress-tls-secret
+        spec:
+          data:
+          - remoteRef:
+              conversionStrategy: Default
+              decodingStrategy: None
+              key: openshift-ingress-operator/ingress-tls
+              metadataPolicy: None
+              property: tls.crt
+            secretKey: tls.crt
+          - remoteRef:
+              conversionStrategy: Default
+              decodingStrategy: None
+              key: openshift-ingress-operator/ingress-tls
+              metadataPolicy: None
+              property: tls.key
+            secretKey: tls.key
+          refreshInterval: 15s
+          secretStoreRef:
+            kind: ClusterSecretStore
+            name: bao-vault
+          target:
+            creationPolicy: Owner
+            deletionPolicy: Retain
+            name: openshift-ingress-tls-secret
+            template:
+              engineVersion: v2
+              mergePolicy: Replace
+              metadata: {}
+              type: kubernetes.io/tls
