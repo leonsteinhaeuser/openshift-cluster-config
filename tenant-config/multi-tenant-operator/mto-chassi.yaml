@@ -36,9 +36,11 @@ spec:
     enableCertificateConfigMapCreation: true
     enableArgoCDControllerManagement: true
     enableNamePrefix: true
-    enableNetworkPolicyTenantInternalAllow: true
+    enableNetworkPolicyTenantInternalAllow: false
   namespaces:
     - name: front
     - name: center
     - name: back
     - name: shared
+      configSpec:
+        enableNetworkPolicyTenantInternalAllow: true
