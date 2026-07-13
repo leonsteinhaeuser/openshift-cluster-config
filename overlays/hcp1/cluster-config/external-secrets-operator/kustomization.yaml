@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../../../../base/external-secrets-operator/operator
   - ../../../../base/external-secrets-operator/instance
+  - cluster-secret-store.yaml
 
 components:
   - ../../../../base/external-secrets-operator/components/external-secrets-operator-1.0
