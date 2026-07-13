@@ -5,4 +5,4 @@ resources:
   - ../../../../base/nmstate-operator/instance
 
 components:
-  - ../../../../base/nmstate-operator/components/nmstate-v4.21.0-202604080925
+  - ../../../../base/nmstate-operator/components/nmstate-v4.22.0-202607011224
