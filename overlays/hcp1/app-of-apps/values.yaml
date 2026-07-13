@@ -72,6 +72,13 @@ applications:
     source:
       path: "external-secrets-operator"
 
+  external-secrets-operator-config:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-9"
+    source:
+      path: "external-secrets-operator-config"
+
   openshift-gitops-operator:
     enabled: true
     annotations:
