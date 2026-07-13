@@ -11,9 +11,3 @@ spec:
         type: ethernet
         state: up
         mac-address: 52:54:00:83:24:8d
-        ipv4:
-          enabled: true
-          dhcp: false
-          address:
-            - ip: 192.168.100.12
-              prefix-length: 24

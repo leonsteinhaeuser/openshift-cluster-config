@@ -129,7 +129,7 @@ applications:
       path: "nmstate-operator"
 
   cluster-config-nncp:
-    enabled: true
+    enabled: false
     annotations:
       argocd.argoproj.io/sync-wave: "-4"
     source:
