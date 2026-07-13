@@ -4,4 +4,4 @@ resources:
   - ../../../../base/external-secrets-operator/operator
 
 components:
-  - ../../../../base/external-secrets-operator/components/external-secrets-operator-1.0
+  - ../../../../base/external-secrets-operator/components/external-secrets-operator-1.2
