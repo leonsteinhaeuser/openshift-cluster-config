@@ -1,0 +1,11 @@
+- op: replace
+  path: /spec/storageClassName
+  value: lvms-lvm-local-block
+
+- op: replace
+  path: /spec/storage/secret/name
+  value: loki-s3
+
+- op: replace
+  path: /spec/size
+  value: 1x.demo

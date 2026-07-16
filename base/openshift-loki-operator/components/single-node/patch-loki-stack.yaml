@@ -1,0 +1,23 @@
+- op: add
+  path: /spec/template
+  value:
+    compactor:
+      replicas: 1
+    distributor:
+      replicas: 1
+    gateway:
+      replicas: 1
+    indexGateway:
+      replicas: 1
+    ingester:
+      replicas: 1
+    querier:
+      replicas: 1
+    queryFrontend:
+      replicas: 1
+    ruler:
+      replicas: 1
+- op: add
+  path: /spec/replication
+  value:
+    factor: 1

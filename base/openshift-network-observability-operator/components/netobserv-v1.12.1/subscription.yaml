@@ -1,0 +1,7 @@
+- op: replace
+  path: /spec/channel
+  value: stable
+
+- op: replace
+  path: /spec/startingCSV
+  value: network-observability-operator.v1.12.1

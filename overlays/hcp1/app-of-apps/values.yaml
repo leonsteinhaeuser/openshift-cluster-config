@@ -149,6 +149,27 @@ applications:
     source:
       path: "openshift-lvm-operator"
 
+  openshift-loki-operator:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-2"
+    source:
+      path: "openshift-loki-operator"
+
+  openshift-network-observability-operator:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-2"
+    source:
+      path: "openshift-network-observability-operator"
+
+  openshift-network-observability-instance:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-2"
+    source:
+      path: "openshift-network-observability-instance"
+
   multi-tenant-operator:
     enabled: true
     annotations:

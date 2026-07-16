@@ -1,0 +1,109 @@
+apiVersion: flows.netobserv.io/v1beta2
+kind: FlowCollector
+metadata:
+  name: cluster
+spec:
+  agent:
+    ebpf:
+      cacheActiveTimeout: 15s
+      cacheMaxFlows: 120000
+      excludeInterfaces:
+      - lo
+      features:
+      - PacketDrop
+      - UDNMapping
+      - IPSec
+      - DNSTracking
+      - TLSTracking
+      - FlowRTT
+      - NetworkEvents
+      - PacketTranslation
+      - EbpfManager
+      imagePullPolicy: IfNotPresent
+      kafkaBatchSize: 1048576
+      logLevel: info
+      metrics:
+        server:
+          tls:
+            insecureSkipVerify: false
+            type: Disabled
+      privileged: true
+      resources:
+        limits:
+          memory: 800Mi
+        requests:
+          cpu: 100m
+          memory: 50Mi
+      sampling: 50
+    ipfix:
+      cacheActiveTimeout: 20s
+      cacheMaxFlows: 400
+      clusterNetworkOperator:
+        namespace: openshift-network-operator
+      forceSampleAll: false
+      ovnKubernetes:
+        containerName: ovnkube-node
+        daemonSetName: ovnkube-node
+        namespace: ovn-kubernetes
+      sampling: 400
+    type: eBPF
+  consolePlugin:
+    autoscaler:
+      maxReplicas: 0
+      status: Disabled
+    enable: true
+    imagePullPolicy: IfNotPresent
+    logLevel: info
+    portNaming:
+      enable: true
+    quickFilters:
+    - default: true
+      filter:
+        flow_layer: '"app"'
+      name: Applications
+    - filter:
+        flow_layer: '"infra"'
+      name: Infrastructure
+    - default: true
+      filter:
+        dst_kind: '"Pod"'
+        src_kind: '"Pod"'
+      name: Pods network
+    - filter:
+        dst_kind: '"Service"'
+      name: Services network
+    - filter:
+        src_subnet_label: '"",EXT:'
+      name: External ingress
+    - filter:
+        dst_subnet_label: '"",EXT:'
+      name: External egress
+    replicas: 1
+    resources:
+      limits:
+        memory: 100Mi
+      requests:
+        cpu: 100m
+        memory: 50Mi
+  deploymentModel: Service
+  execution:
+    mode: ""
+  loki:
+    enable: true
+    lokiStack:
+      name: loki
+    mode: LokiStack
+    readTimeout: 30s
+    writeBatchSize: 10485760
+    writeBatchWait: 1s
+    writeTimeout: 10s
+  namespace: netobserv
+  networkPolicy:
+    enable: true
+  processor:
+    resources:
+      limits:
+        memory: 800Mi
+      requests:
+        cpu: 100m
+        memory: 100Mi

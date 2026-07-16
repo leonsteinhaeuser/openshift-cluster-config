@@ -1,0 +1,18 @@
+apiVersion: loki.grafana.com/v1
+kind: LokiStack
+metadata:
+  name: loki
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"
+spec:
+  size: PATCH_ME
+  storage:
+    schemas:
+    - version: v13
+      effectiveDate: '2022-06-01'
+    secret:
+      name: PATCH_ME
+      type: s3
+  storageClassName: PATCH_ME
+  tenants:
+    mode: openshift-network
