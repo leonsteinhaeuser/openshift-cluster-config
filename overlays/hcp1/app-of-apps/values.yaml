@@ -43,6 +43,13 @@ projects:
     description: "Project for cluster configuration of HCP1 cluster"
 
 applications:
+  kubelet-config:
+    enabled: true
+    annotations:
+      argocd.argoproj.io/sync-wave: "-10"
+    source:
+      path: "base-config/kubelet-config"
+
   cluster-config-proxy:
     enabled: true
     annotations:

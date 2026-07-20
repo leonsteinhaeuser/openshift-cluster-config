@@ -1,0 +1,7 @@
+- op: add
+  path: /spec/kubeletConfig
+  value:
+    imageGCHighThresholdPercent: 75
+    imageGCLowThresholdPercent: 60
+    containerLogMaxFiles: 5
+    containerLogMaxSize: "50Mi"
